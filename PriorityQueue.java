@@ -169,7 +169,11 @@ class PriorityQueue<E, P> {
      */
 
     public boolean contains(E e) {
-
+        for(Node node : heap){
+            if(node.getElement().equals(e)){
+                 return true;
+        }
+        }
         // ADD YOUR CODE HERE
         return false;
     }
