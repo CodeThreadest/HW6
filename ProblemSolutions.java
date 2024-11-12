@@ -172,6 +172,25 @@ public class ProblemSolutions {
         //
         //  YOUR CODE GOES HERE
         //
-        return new ArrayList<>();  // Make sure returned lists is sorted as indicated above
+         HashSet<Integer> seen = new HashSet<>();
+        HashSet<String> pairs = new HashSet<>();
+        ArrayList<String> result = new ArrayList<>();
+
+        // Identify pairs that add up to k
+        for (int num : input) {
+            int complement = k - num;
+            if (seen.contains(complement)) {
+                int lower = Math.min(num, complement);
+                int higher = Math.max(num, complement);
+                pairs.add("(" + lower + ", " + higher + ")");
+            }
+            seen.add(num);
+        }
+
+        // Convert HashSet to ArrayList and sort
+        result.addAll(pairs);
+        Collections.sort(result);
+
+        return result;
     }
 }
