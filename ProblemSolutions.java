@@ -64,11 +64,30 @@ public class ProblemSolutions {
      */
 
   public static int lastBoulder(int[] boulders) {
-
+  
       //
       // ADD YOUR CODE HERE - DO NOT FORGET TO ADD YOUR NAME / SECTION # ABOVE
       //
-      return -1;
+      PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder());
+
+        // Add all boulders to the max-heap
+        for (int boulder : boulders) {
+            maxHeap.add(boulder);
+        }
+
+        // Continue the process until there is at most one boulder left
+        while (maxHeap.size() > 1) {
+            int first = maxHeap.poll(); // Heaviest boulder
+            int second = maxHeap.poll(); // Second heaviest boulder
+
+            if (first != second) {
+                maxHeap.add(first - second); // Add the difference back to the heap
+            }
+        }
+
+        // If there's one boulder left, return its weight, otherwise return 0
+        return maxHeap.isEmpty() ? 0 : maxHeap.poll();
+    }
   }
 
 
