@@ -113,7 +113,26 @@ public class ProblemSolutions {
         //
         //  YOUR CODE GOES HERE
         //
-        return new ArrayList<>();  // Make sure result is sorted in ascending order
+        HashMap<String, Integer> frequencyMap = new HashMap<>();
+
+        // Count the frequency of each string in the input list
+        for (String s : input) {
+            frequencyMap.put(s, frequencyMap.getOrDefault(s, 0) + 1);
+        }
+
+        ArrayList<String> duplicates = new ArrayList<>();
+
+        // Add strings that appear more than once to the duplicates list
+        for (String s : frequencyMap.keySet()) {
+            if (frequencyMap.get(s) > 1) {
+                duplicates.add(s);
+            }
+        }
+
+        // Sort the duplicates list in ascending order
+        Collections.sort(duplicates);
+
+        return duplicates;
 
     }
 
