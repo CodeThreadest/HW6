@@ -150,9 +150,11 @@ class PriorityQueue<E, P> {
      */
 
     public Node add(E e, P priority) {
-
+        Node newNode = new Node(e, priority);
+        heap.add(newNode);
+        bubbleUp(heap.size() - 1)
         // YOUR CODE GOES HERE
-        return null;
+        return newNode;
     }
 
 
