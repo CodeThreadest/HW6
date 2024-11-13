@@ -1,7 +1,7 @@
 
 /******************************************************************
  *
- *   YOUR NAME / SECTION NUMBER
+ *   Daniel / 001
  *
  *   Note, additional comments provided throughout this source code
  *   is for educational purposes
@@ -150,22 +150,24 @@ class PriorityQueue<E, P> {
      */
 
     public Node add(E e, P priority) {
-        Node newNode = new Node(e, priority, tree.size());
-        tree.add(newNode);
+        Node tempNode = new Node(e, priority, tree.size());
+        tree.add(tempNode);
 
         int index = tree.size() - 1;
         int parentIndex = (index - 1) / 2;
-        while (index > 0 && comparator.compare(newNode.priority(), tree.get(parentIndex).priority()) < 0) {
+        //compare tree to tempNode
+        while (index > 0 && comparator.compare(tempNode.priority(), tree.get(parentIndex).priority()) < 0) {
             // Swap the nodes
             Node temp = tree.get(index);
             tree.set(index, tree.get(parentIndex));
             tree.set(parentIndex, temp);
 
             index = parentIndex;
+            //find parent index
             parentIndex = (index - 1) / 2;
         }
 
-        return newNode;
+        return tempNode;
     }
 
 
@@ -180,7 +182,9 @@ class PriorityQueue<E, P> {
      */
 
     public boolean contains(E e) {
+        //loop through tree
         for (Node node : tree) {
+            //check if node value is equal to e
             if (node.value().equals(e)) {
                 return true;
             }
@@ -221,6 +225,7 @@ class PriorityQueue<E, P> {
      */
 
     public Node remove() {
+        //Check if tree is empty
         if (tree.isEmpty()) {
             throw new IllegalStateException("PriorityQueue is empty");
         }

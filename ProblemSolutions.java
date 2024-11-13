@@ -1,7 +1,7 @@
 
 /******************************************************************
  *
- *   YOUR NAME / SECTION NUMBER
+ *   Daniel Duvic / 001
  *
  *   This java file contains the problem solutions for the methods lastBoulder,
  *   showDuplicates, and pair methods. You should utilize the Java Collection
@@ -70,18 +70,18 @@ public class ProblemSolutions {
       //
       PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder());
 
-        // Add all boulders to the max-heap
+        // loop through all boulders to add to max-heap
         for (int boulder : boulders) {
             maxHeap.add(boulder);
         }
 
-        // Continue the process until there is at most one boulder left
+        // Continue the process until there is one boulder left
         while (maxHeap.size() > 1) {
-            int first = maxHeap.poll(); // Heaviest boulder
-            int second = maxHeap.poll(); // Second heaviest boulder
+            int first = maxHeap.poll();
+            int second = maxHeap.poll();
 
             if (first != second) {
-                maxHeap.add(first - second); // Add the difference back to the heap
+                maxHeap.add(first - second);
             }
         }
 
@@ -115,14 +115,14 @@ public class ProblemSolutions {
         //
         HashMap<String, Integer> frequencyMap = new HashMap<>();
 
-        // Count the frequency of each string in the input list
+        // loop through input and add to frequencyMap
         for (String s : input) {
             frequencyMap.put(s, frequencyMap.getOrDefault(s, 0) + 1);
         }
 
         ArrayList<String> duplicates = new ArrayList<>();
 
-        // Add strings that appear more than once to the duplicates list
+        // loop through frequencyMap keys to check if they appear more than once to the duplicates list
         for (String s : frequencyMap.keySet()) {
             if (frequencyMap.get(s) > 1) {
                 duplicates.add(s);
@@ -174,9 +174,8 @@ public class ProblemSolutions {
         //
          HashSet<Integer> seen = new HashSet<>();
         HashSet<String> pairs = new HashSet<>();
-        ArrayList<String> result = new ArrayList<>();
 
-        // Identify pairs that add up to k
+        // Identify pairs that add up to k by looping through input
         for (int num : input) {
             int complement = k - num;
             if (seen.contains(complement)) {
@@ -188,7 +187,7 @@ public class ProblemSolutions {
         }
 
         // Convert HashSet to ArrayList and sort
-        result.addAll(pairs);
+        ArrayList<String> result = new ArrayList<>(pairs);
         Collections.sort(result);
 
         return result;
