@@ -155,10 +155,6 @@ class PriorityQueue<E, P> {
 
         int index = tree.size() - 1;
         int parentIndex = (index - 1) / 2;
-
-
-
-
         while (index > 0 && comparator.compare(newNode.priority(), tree.get(parentIndex).priority()) < 0) {
             // Swap the nodes
             Node temp = tree.get(index);
@@ -184,14 +180,33 @@ class PriorityQueue<E, P> {
      */
 
     public boolean contains(E e) {
-        for(Node node : tree){
-            if(node.getClass().equals(e)){
-                 return true;
+        for (Node node : tree) {
+            if (node.value().equals(e)) {
+                return true;
+            }
         }
+
+        // Check for elements with the same priority
+        int highestPriorityIndex = -1;
+        for (int i = 0; i < tree.size(); i++) {
+            if (tree.get(i).value().equals(e)) {
+                if (highestPriorityIndex == -1 || comparator.compare(tree.get(i).priority(), tree.get(highestPriorityIndex).priority()) < 0) {
+                    highestPriorityIndex = i;
+                }
+            }
         }
-        // ADD YOUR CODE HERE
+
+        if (highestPriorityIndex != -1) {
+            for (Node node : tree) {
+                if (node.priority().equals(tree.get(highestPriorityIndex).priority())) {
+                    return true;
+                }
+            }
+        }
+
         return false;
     }
+
 
 
     /**
