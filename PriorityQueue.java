@@ -150,10 +150,25 @@ class PriorityQueue<E, P> {
      */
 
     public Node add(E e, P priority) {
-        Node newNode = new Node(e, priority);
-        heap.add(newNode);
-        bubbleUp(heap.size() - 1)
-        // YOUR CODE GOES HERE
+        Node newNode = new Node(e, priority, tree.size());
+        tree.add(newNode);
+
+        int index = tree.size() - 1;
+        int parentIndex = (index - 1) / 2;
+
+
+
+
+        while (index > 0 && comparator.compare(newNode.priority(), tree.get(parentIndex).priority()) < 0) {
+            // Swap the nodes
+            Node temp = tree.get(index);
+            tree.set(index, tree.get(parentIndex));
+            tree.set(parentIndex, temp);
+
+            index = parentIndex;
+            parentIndex = (index - 1) / 2;
+        }
+
         return newNode;
     }
 
@@ -169,8 +184,8 @@ class PriorityQueue<E, P> {
      */
 
     public boolean contains(E e) {
-        for(Node node : heap){
-            if(node.getElement().equals(e)){
+        for(Node node : tree){
+            if(node.getClass().equals(e)){
                  return true;
         }
         }
@@ -191,7 +206,7 @@ class PriorityQueue<E, P> {
      */
 
     public Node remove() {
-        if (tree.size() == 0) {
+        if (tree.isEmpty()) {
             throw new IllegalStateException("PriorityQueue is empty");
         }
         return poll();
@@ -224,13 +239,13 @@ class PriorityQueue<E, P> {
             return null;
 
         if (tree.size() == 1) {
-            final Node removedNode = tree.remove(0);
+            final Node removedNode = tree.removeFirst();
             removedNode.markRemoved();
             return removedNode;
         } else {
-            Node head = tree.get(0);
+            Node head = tree.getFirst();
             head.markRemoved();
-            final Node nodeToMoveToHead = tree.remove(tree.size() - 1);
+            final Node nodeToMoveToHead = tree.removeLast();
             nodeToMoveToHead.idx = 0;
             tree.set(0, nodeToMoveToHead);
             pushDown(0);

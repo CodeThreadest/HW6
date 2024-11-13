@@ -88,7 +88,7 @@ public class ProblemSolutions {
         // If there's one boulder left, return its weight, otherwise return 0
         return maxHeap.isEmpty() ? 0 : maxHeap.poll();
     }
-  }
+
 
 
     /**
@@ -193,4 +193,4 @@ public class ProblemSolutions {
 
         return result;
     }
-}
+    }
